@@ -1,18 +1,27 @@
 package todo;
 
-import javafx.application.Application;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportResource;
-import todo.service.react.ComponentRenderService;
-import todo.service.react.ScriptManagerComponentRenderService;
+import todo.domain.Task;
+import todo.domain.TaskRepository;
 
 @SpringBootApplication
-public class TodoApplication {
+public class TodoApplication implements CommandLineRunner {
+    @Autowired
+    private TaskRepository repository;
+
     public static void main(String[] args) {
         SpringApplication.run(TodoApplication.class, args);
+    }
+
+    @Override
+    public void run(String... strings) throws Exception {
+        repository.deleteAll();
+
+        repository.save(new Task("Clean the floor"));
+
+        repository.findAll().forEach(System.out::println);
     }
 }
