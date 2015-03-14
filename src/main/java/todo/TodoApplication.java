@@ -20,7 +20,9 @@ public class TodoApplication implements CommandLineRunner {
     public void run(String... strings) throws Exception {
         repository.deleteAll();
 
-        repository.save(new Task("Clean the floor"));
+        repository.save(Task.create("Clean the floor", true));
+        repository.save(Task.create("Do the dishes", false));
+        repository.save(Task.create("Make some tea", true));
 
         repository.findAll().forEach(System.out::println);
     }

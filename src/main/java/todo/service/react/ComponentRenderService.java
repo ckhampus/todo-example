@@ -1,15 +1,17 @@
 package todo.service.react;
 
 import org.springframework.stereotype.Service;
+import todo.service.react.component.Component;
 
 @Service
 public interface ComponentRenderService {
+    public String propsToJSON(Object props);
+
     /**
      * Renders a React component.
      *
-     * @param component The name of the component to render.
-     * @param props     The initial data to render the component with.
+     * @param component The component to render.
      * @return The HTML for the rendered component.
      */
-    public String render(String component, Object props);
+    public String render(Component component);
 }
